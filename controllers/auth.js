@@ -49,8 +49,8 @@ module.exports.register = async function(req, res){
         try{
             await user.save()
             res.status(201).json(user)
-        } catch(error){
-            errorHeandler(res, error)
+        } catch(e){
+            errorHeandler(res, e)
         }
 
     }

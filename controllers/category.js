@@ -1,3 +1,7 @@
+const Product = require('../models/Product')
+const Category = require('../models/Category')
+const errorHeandler = require('../utils/errorHeandler')
+
 module.exports.getCategory = function(req, res){
     res.status(200).json({
         getCategory: 'from controller getCategory'
@@ -5,15 +9,25 @@ module.exports.getCategory = function(req, res){
 }
 
 module.exports.create = function(req, res){
-    res.status(200).json({
-        create: 'from controller Category create'
-    })
+    try{
+        const category = new Category({
+
+        })
+        res.status(200).json()
+    } catch (e) {
+        errorHeandler(res, e)
+    }
 }
 
-module.exports.getProducts = function(req, res){
-    res.status(200).json({
-        getProductsByCategory: 'from controller Category getProductsByCategory'
-    })
+module.exports.getProducts = async function(req, res){
+    try{
+        const products = await Product.find({
+            idCategory: req.params.idCategory
+        })
+        res.status(200).json(products)
+    } catch (e) {
+        errorHeandler(res, e)
+    }
 }
 
 module.exports.edit = function(req, res){

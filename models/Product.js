@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const productSchema = new Schema({
-    id: {
+    idProduct: {
         type: Number,
         required: true,
         unique: true
@@ -27,7 +27,7 @@ const productSchema = new Schema({
         type: Number,
         default: 0
     },
-    image: {
+    imageSrc: {
         type: String,
         default: ''
     }
