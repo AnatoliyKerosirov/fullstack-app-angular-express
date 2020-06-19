@@ -1,23 +1,73 @@
-module.exports.getOrder = function(req, res){
-    res.status(200).json({
-        order: 'from controller Order get order'
-    })
+const Order = require('../models/Order')
+const errorHeandler = require('../utils/errorHeandler')
+
+module.exports.getAll = async function(req, res){
+    const query = {}
+    if(req.query.startDate){
+        query.date = {
+            //Больше или равно
+            $gte: req.query.startDate
+        }
+    }
+    if(req.query.endDate){
+        if(!query.date)
+            query.date = {}
+        //Меньше или равно
+        query.date['$lte'] = req.query.endDate
+    }
+    try{
+        const orders = await Order.find(query)
+            .sort({date: -1})
+            .offset(req.query.offset)
+            .limit(req.query.limit)
+        res.status(200).json(orders)
+    } catch (e) {
+        errorHeandler(res, e)
+    }
 }
 
-module.exports.create = function(req, res){
-    res.status(200).json({
-        create: 'from controller Order create'
-    })
+module.exports.getOrder = async function(req, res){
+    try{
+        const order = Order.findOne({_id: req.body.id})
+        res.status(200).json(order)
+    } catch (e) {
+        errorHeandler(res, e)
+    }
 }
 
-module.exports.edit = function(req, res){
-    res.status(200).json({
-        edit: 'from controller Order edit'
-    })
+module.exports.create = async function(req, res){
+    try{
+        const lastOrder = Order.find().sort({date: -1})
+        const maxOrder = lastOrder ? lastOrder.idOrder : 0
+        const order = await new Order({
+            idOrder: maxOrder + 1,
+            date: new Date(),
+            listProducts: req.body.listProducts,
+            userInfo: req.body.userInfo,
+            shipmentInfo: req.body.shipmentInfo,
+            comment: req.body.comment
+        }).save()
+        res.status(201).json(order)
+    } catch (e) {
+        errorHeandler(res, e)
+    }
 }
 
-module.exports.delete = function(req, res){
-    res.status(200).json({
-        delete: 'from controller Order delete'
-    })
+module.exports.update = async function(req, res){
+    try{
+        const updateOrder = new Order({
+
+        })
+        res.status(200).json()
+    } catch (e) {
+        errorHeandler(res, e)
+    }
+}
+
+module.exports.remove = function(req, res){
+    try{
+        res.status(200).json()
+    } catch (e) {
+        errorHeandler(res, e)
+    }
 }
