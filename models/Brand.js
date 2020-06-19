@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const brandSchema = new Schema({
-    id: {
+    idBrand: {
         type: Number,
         required: true,
         unique: true
@@ -12,8 +12,12 @@ const brandSchema = new Schema({
         default: ''
     },
     idParent: {
-        ref: 'brands',
-        type: mongoose.Schema.ObjectId
+        type: Number,
+        default: 0
+    },
+    imageSrc: {
+        type: String,
+        default: ''
     }
 })
 
