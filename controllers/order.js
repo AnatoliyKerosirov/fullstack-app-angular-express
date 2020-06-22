@@ -36,7 +36,7 @@ module.exports.getOrder = async function(req, res){
 }
 
 module.exports.create = async function(req, res){
-    try{
+    try{q
         const lastOrder = Order.find().sort({date: -1})
         const maxOrder = lastOrder ? lastOrder.idOrder : 0
         const order = await new Order({
