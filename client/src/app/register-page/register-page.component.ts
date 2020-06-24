@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {MaterialService} from "../shared/classes/material.service";
 
 @Component({
   selector: 'app-register-page',
@@ -41,6 +42,7 @@ export class RegisterPageComponent implements OnInit {
         })
       },
       error => {
+        MaterialService.toast(error.error.message)
         console.log('Error: ', error)
 
       }
