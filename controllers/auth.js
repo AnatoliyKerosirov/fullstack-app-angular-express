@@ -40,18 +40,14 @@ module.exports.register = async function(req, res){
     } else {
         const salt = bcrypt.genSaltSync(10)
         const user = new User({
-            id: req.body.id,
-            name: req.body.name || '',
             email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, salt),
-            role: req.body.role
+            password: bcrypt.hashSync(req.body.password, salt)
         })
         try{
             await user.save()
             res.status(201).json(user)
         } catch(e){
-            errorHeandler(res, e)
+            errorHeandler(res, {message: 'Error create user: ' + e})
         }
-
     }
 }
