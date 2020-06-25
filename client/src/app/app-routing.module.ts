@@ -13,6 +13,7 @@ import {CategoriesPageComponent} from "./categories-page/categories-page.compone
 import {BrandsPageComponent} from "./brands-page/brands-page.component";
 import {ProductsPageComponent} from "./products-page/products-page.component";
 import {HistoryPageComponent} from "./history-page/history-page.component";
+import {CategoriesFormComponent} from "./categories-page/categories-form/categories-form.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,8 @@ const routes: Routes = [
       {path: 'history', component: HistoryPageComponent},
       {path: 'order', component: OrderPageComponent},
       {path: 'categories', component: CategoriesPageComponent},
+      {path: 'categories/new', component: CategoriesFormComponent},
+      {path: 'categories/:id', component: CategoriesFormComponent},
       {path: 'brands', component: BrandsPageComponent},
       {path: 'products', component: ProductsPageComponent}
     ]
