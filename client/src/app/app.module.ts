@@ -17,6 +17,7 @@ import {OrderPageComponent} from './order-page/order-page.component';
 import { CategoriesPageComponent } from './categories-page/categories-page.component';
 import { BrandsPageComponent } from './brands-page/brands-page.component';
 import { ProductsPageComponent } from './products-page/products-page.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ProductsPageComponent } from './products-page/products-page.component';
     OrderPageComponent,
     CategoriesPageComponent,
     BrandsPageComponent,
-    ProductsPageComponent
+    ProductsPageComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
