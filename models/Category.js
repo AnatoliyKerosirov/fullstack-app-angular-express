@@ -2,10 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const categorySchema = new Schema({
-    idCategory: {
-        type: Number,
-        required: true
-    },
     name: {
         type: String,
         default: ''
@@ -14,7 +10,7 @@ const categorySchema = new Schema({
         type: String,
         default: ''
     },
-    imageSrc:{
+    imageSrc: {
         type: String,
         default: ''
     }

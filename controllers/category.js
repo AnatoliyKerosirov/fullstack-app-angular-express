@@ -50,7 +50,6 @@ module.exports.update =  async function(req, res){
     console.log('req.file.path: ', req.file)
     const updated = {
         name: req.body.name || '',
-        idCategory: req.body.idCategory || 0,
         idParent: req.body.idParent || null
     }
     if(req.file){
