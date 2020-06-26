@@ -26,7 +26,6 @@ module.exports.getBrand = async function(req, res){
 module.exports.create = async function(req, res){
     try{
         const newBrand = await new Brand({
-            idBrand: req.body.idBrand,
             name: req.body.name,
             idParent: req.body.idParent,
             imageSrc: req.file ? req.file.path : ''

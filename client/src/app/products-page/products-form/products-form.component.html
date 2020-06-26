@@ -2,21 +2,56 @@
   <div class="col s12">
     <div class="page-subtitle">
       <h4>Товары:</h4>
-      <button class="waves-effect waves-light btn grey darken-1 btn-small modal-trigger" data-target="create-modal">
+      <button
+        class="waves-effect waves-light btn grey darken-1 btn-small "
+        (click)="addProduct()"
+      >
         Добавить товар
       </button>
     </div>
-
-    <div class="collection">
-      <a class="collection-item collection-item-icon">
-                    <span>
-                        Кофе <strong>20 грн.</strong>
-                    </span>
-        <span>
-                        <i class="material-icons">delete</i>
-                    </span>
-      </a>
+    <div *ngIf="!loading; else loader">
+      <div class="collection" *ngIf="products.length !== 0; else empty">
+        <a
+          *ngFor="let product as products"
+          class="collection-item collection-item-icon"
+          (click)="onSelectProduct(product)"
+        >
+                        <span>
+                            {{product.name}}<strong>{{product.price}} грн.</strong>
+                        </span>
+          <span>
+                <i class="material-icons">delete</i>
+            </span>
+        </a>
+      </div>
+      <ng-template #empty>
+        <div class="center">
+          В этой категории нет товара
+        </div>
+      </ng-template>
     </div>
+    <ng-template #loader>
+      <app-loader ></app-loader>
+    </ng-template>
+
+  </div>
+</div>
+
+<div class="modal" #modal>
+  <div class="modal-content">
+    <h4 class="mb1">Добавить позицию</h4>
+    <div class="input-field">
+      <input id="pos-name" type="text" required>
+      <label for="pos-name">Название</label>
+    </div>
+    <div class="input-field">
+      <input id="pos-cost" type="text" required>
+      <label for="pos-cost">Цена</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat">Отмена</button>
+    <button class="modal-action btn waves-effect">Сохранить</button>
   </div>
 </div>
 
