@@ -12,16 +12,16 @@
     <div *ngIf="!loading; else loader">
       <div class="collection" *ngIf="products.length !== 0; else empty">
         <a
-          *ngFor="let product as products"
+          *ngFor="let product of products"
           class="collection-item collection-item-icon"
           (click)="onSelectProduct(product)"
         >
-                        <span>
-                            {{product.name}}<strong>{{product.price}} грн.</strong>
-                        </span>
           <span>
-                <i class="material-icons">delete</i>
-            </span>
+              {{product.name}}<strong> {{product.price}} грн.</strong>
+          </span>
+          <span>
+            <i class="material-icons" (click)="onDeleteProduct($event, product)">delete</i>
+          </span>
         </a>
       </div>
       <ng-template #empty>
@@ -33,26 +33,167 @@
     <ng-template #loader>
       <app-loader ></app-loader>
     </ng-template>
-
   </div>
 </div>
 
-<div class="modal" #modal>
-  <div class="modal-content">
-    <h4 class="mb1">Добавить позицию</h4>
-    <div class="input-field">
-      <input id="pos-name" type="text" required>
-      <label for="pos-name">Название</label>
-    </div>
-    <div class="input-field">
-      <input id="pos-cost" type="text" required>
-      <label for="pos-cost">Цена</label>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat">Отмена</button>
-    <button class="modal-action btn waves-effect">Сохранить</button>
-  </div>
-</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal" #modal>
+    <div class="modal-content pb0">
+      <h4 class="mb1">Добавить позицию</h4>
+      <div class="input-field">
+        <input
+          formControlName="name"
+          id="name"
+          type="text"
+          [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"
+        >
+        <label for="name">Название</label>
+        <span
+          *ngIf="form.get('name').invalid && form.get('name').touched"
+          class="helper-text red-text"
+        >
+          Введите наименование
+        </span>
+      </div>
+      <div class="input-field">
+        <input
+          formControlName="price"
+          id="price"
+          type="text"
+          [ngClass]="{'invalid': form.get('price').invalid && form.get('price').touched}"
+        >
+        <label for="price">Цена Продажи</label>
+        <span
+          *ngIf="form.get('price').invalid && form.get('price').touched"
+          class="helper-text red-text"
+        >
+          Введите корректную цену продажи
+        </span>
+      </div>
+      <div class="input-field">
+        <input
+          formControlName="cost"
+          id="cost"
+          type="text"
+          [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}"
+          >
+        <label for="price">Цена Входящая</label>
+        <span
+          *ngIf="form.get('cost').invalid && form.get('cost').touched"
+          class="helper-text red-text"
+        >
+          Введите корректную цену себестоимости
+        </span>
+      </div>
+      <div class="row mb5">
+        <div class="input-field col s8">
+              <input
+                *ngIf="category._id"
+                formControlName="categoryName"
+                id="categoryName"
+                type="text"
+              >
+              <input
+                formControlName="idCategory"
+                type="hidden"
+              >
+              <label for="categoryName">Категория</label>
+        </div>
+        <div class="input-field col s4">
+          <button
+            (click)="onSelectCategory()"
+            [disabled]="form.disabled"
+            type="button"
+            class="waves-effect waves-light btn orange lighten-2 mb2"
+          >
+            <i class="material-icons left">storage</i>
+            Выбрать категорию
+          </button>
+        </div>
+      </div>
+      <div class="row mb5">
+        <div class="input-field col s8">
+          <input
+            formControlName="brandName"
+            id="brandName"
+            type="text"
+          >
+          <input
+            formControlName="idBrand"
+            type="hidden"
+          >
+          <label for="brandName">Бренд</label>
+        </div>
+        <div class="input-field col s4">
+          <button
+            (click)="onSelectBrand()"
+            [disabled]="form.disabled"
+            type="button"
+            class="waves-effect waves-light btn orange lighten-2 mb2"
+          >
+            <i class="material-icons left">storage</i>
+            Выбрать Бренд
+          </button>
+        </div>
+      </div>
 
+      <div class="row mb5">
+          <div class="input-field col s4">
+            <input
+              type="file"
+              class="dn"
+              (change)="onFileUpload($event)"
+              #inputProductImage
+            >
+            <button
+              (click)="triggerClick()"
+              [disabled]="form.disabled"
+              type="button"
+              class="waves-effect waves-light btn orange lighten-2 mb2"
+            >
+              <i class="material-icons left">backup</i>
+              Загрузить изображение
+            </button>
+          </div>
+          <div class="input-field col s4">
+            <input
+              formControlName="idProduct"
+              id="idProduct"
+              type="text"
+              [ngClass]="{'invalid': form.get('idProduct').invalid && form.get('idProduct').touched}"
+            >
+            <label for="idProduct">Код товара</label>
+            <span
+              *ngIf="form.get('idProduct').invalid && form.get('idProduct').touched"
+              class="helper-text red-text"
+            >
+              Введите корректный код (только цифры)
+            </span>
+          </div>
+          <div class="input-field col s4">
+            <img
+              class="responsive-img h120"
+              [src]="imagePreview"
+              *ngIf="imagePreview"
+            >
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        (click)="onCancel()"
+        class="modal-action waves-effect waves-black btn-flat"
+        [disabled]="form.disabled"
+      >
+        Отмена
+      </button>
+      <button
+        class="modal-action btn waves-effect"
+      >
+        Сохранить
+      </button>
+    </div>
+  </div>
+</form>
 

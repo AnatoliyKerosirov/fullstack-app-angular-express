@@ -17,9 +17,10 @@ export interface Category {
 export interface Product {
   name: string,
   imageSrc: string,
-  categoryId: string,
-  brandId: string,
+  idCategory: string,
+  idBrand: string,
   cost: number,
   price: number,
+  idProduct: number,
   _id?: string
 }

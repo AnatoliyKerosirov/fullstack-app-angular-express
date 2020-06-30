@@ -20,11 +20,12 @@ module.exports.create = async function(req, res){
             idBrand: req.body.idBrand,
             cost: req.body.cost,
             price: req.body.price,
-            imageSrc: req.body.imageSrc
+            imageSrc: req.file ? req.file.path : ''
         }).save()
         res.status(201).json(product)
     } catch (e) {
-        errorHeandler(res, e)
+        console.log(product)
+        errorHeandler(res, {message: 'Error: ' + e})
     }
 }
 
@@ -43,7 +44,7 @@ module.exports.update = async function(req, res){
 
 module.exports.remove = async function(req, res){
     try{
-        await Product.remove({_id: req.body.id})
+        await Product.remove({_id: req.params.id})
         res.status(200).json({
             message: "Продукт удален"
         })

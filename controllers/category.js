@@ -37,9 +37,7 @@ module.exports.create = async function(req, res){
 
 module.exports.getProducts = async function(req, res){
     try{
-        const products = await Product.find({
-            idCategory: req.params.idCategory
-        })
+        const products = await Product.find({idCategory: req.params.idCategory})
         res.status(200).json(products)
     } catch (e) {
         errorHeandler(res, e)

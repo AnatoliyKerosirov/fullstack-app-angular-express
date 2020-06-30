@@ -12,12 +12,12 @@ const productSchema = new Schema({
         default: ''
     },
     idCategory: {
-        ref: 'categories',
-        type: mongoose.Schema.ObjectId
+        type: String,
+        default: ''
     },
     idBrand: {
-        ref: 'brands',
-        type: mongoose.Schema.ObjectId
+        type: String,
+        default: ''
     },
     cost: {
         type: Number,

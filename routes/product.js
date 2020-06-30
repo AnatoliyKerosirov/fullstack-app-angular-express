@@ -1,10 +1,13 @@
 const express = require('express')
-const controller = require('../controllers/product')
+const passport = require('passport')
 const router = express.Router()
+const upload = require('../middleware/upload')
+const controller = require('../controllers/product')
+const passportAuth = passport.authenticate('jwt', {session: false})
 
-router.get('/:id', controller.getProduct)
-router.post('/', controller.create)
-router.patch('/:id', controller.update)
-router.delete('/:id', controller.remove)
+router.get('/:id', passportAuth, controller.getProduct)
+router.post('/', passportAuth, upload.single('image'), controller.create)
+router.patch('/:id', passportAuth, upload.single('image'), controller.update)
+router.delete('/:id', passportAuth, controller.remove)
 
 module.exports = router
