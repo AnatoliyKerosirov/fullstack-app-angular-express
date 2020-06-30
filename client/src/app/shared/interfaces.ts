@@ -22,5 +22,6 @@ export interface Product {
   cost: number,
   price: number,
   idProduct: number,
-  _id?: string
+  _id?: string,
+  quantity?: number
 }
