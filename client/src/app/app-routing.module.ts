@@ -14,6 +14,8 @@ import {BrandsPageComponent} from "./brands-page/brands-page.component";
 import {ProductsPageComponent} from "./products-page/products-page.component";
 import {HistoryPageComponent} from "./history-page/history-page.component";
 import {CategoriesFormComponent} from "./categories-page/categories-form/categories-form.component";
+import {OrderCategoriesComponent} from "./order-page/order-categories/order-categories.component";
+import {OrderProductsComponent} from "./order-page/order-products/order-products.component";
 
 const routes: Routes = [
   {
@@ -28,7 +30,12 @@ const routes: Routes = [
       {path: 'overview', component: OverviewPageComponent},
       {path: 'analytics', component: AnalyticsPageComponent},
       {path: 'history', component: HistoryPageComponent},
-      {path: 'order', component: OrderPageComponent},
+      {
+        path: 'order', component: OrderPageComponent, children: [
+          {path: '', component: OrderCategoriesComponent},
+          {path: ':id', component: OrderProductsComponent}
+        ]
+      },
       {path: 'categories', component: CategoriesPageComponent},
       {path: 'categories/new', component: CategoriesFormComponent},
       {path: 'categories/:id', component: CategoriesFormComponent},
@@ -39,9 +46,9 @@ const routes: Routes = [
 ]
 
 @NgModule({
-imports: [
-  RouterModule.forRoot(routes)
-],
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
   exports: [
     RouterModule
   ]

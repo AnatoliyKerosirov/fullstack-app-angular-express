@@ -20,6 +20,8 @@ import { ProductsPageComponent } from './products-page/products-page.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { CategoriesFormComponent } from './categories-page/categories-form/categories-form.component';
 import { ProductsFormComponent } from './products-page/products-form/products-form.component';
+import { OrderCategoriesComponent } from './order-page/order-categories/order-categories.component';
+import { OrderProductsComponent } from './order-page/order-products/order-products.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ProductsFormComponent } from './products-page/products-form/products-fo
     ProductsPageComponent,
     LoaderComponent,
     CategoriesFormComponent,
-    ProductsFormComponent
+    ProductsFormComponent,
+    OrderCategoriesComponent,
+    OrderProductsComponent
   ],
   imports: [
     BrowserModule,
