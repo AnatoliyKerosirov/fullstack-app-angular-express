@@ -2,7 +2,7 @@
   <h4>История заказов</h4>
   <button
     (click)="isFilterVisible = !isFilterVisible"
-    [ngClass]="{'active': isFilterVisible}"
+    [ngClass]="{'active': isFilterVisible, 'red': isFiltered()}"
     class="btn btn-small"
     data-position="left"
     data-tooltip="Фильтр"
@@ -12,7 +12,11 @@
   </button>
 </div>
 
-<app-history-filter *ngIf="isFilterVisible"></app-history-filter>
+<app-history-filter
+  *ngIf="isFilterVisible"
+  (onFilter)="applyFilter($event)"
+></app-history-filter>
+
 <div *ngIf="!reloading; else reloadingLoader">
   <div *ngIf="orders.length !== 0; else empty">
     <app-history-list [orders]="orders"></app-history-list>

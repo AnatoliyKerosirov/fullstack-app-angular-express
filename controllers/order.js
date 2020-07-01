@@ -4,20 +4,24 @@ const errorHeandler = require('../utils/errorHeandler')
 //(get) /api/order?offset=1&limit=10
 module.exports.getAll = async function(req, res){
     const query = {}
-    if(req.params.startDate){
+    if(req.query.startDate){
         query.date = {
             //Больше или равно
             $gte: req.query.startDate
         }
     }
-    if(req.params.endDate){
+    if(req.query.endDate){
         if(!query.date)
             query.date = {}
         //Меньше или равно
         query.date['$lte'] = req.query.endDate
     }
+    if (req.query.idOrder) {
+        query.idOrder = +req.query.idOrder
+    }
     try{
-        const orders = await Order.find(query)
+        const orders = await Order
+            .find(query)
             .sort({date: -1})
             .skip(+req.query.offset)
             .limit(+req.query.limit)

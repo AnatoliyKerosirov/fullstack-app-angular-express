@@ -43,3 +43,9 @@ export interface OrderProduct {
   idProduct?: number
   _id?: string
 }
+
+export interface Filter {
+  idOrder?: number,
+  startDate?: Date,
+  endDate?: Date
+}
