@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {Product} from "../../shared/interfaces";
 import {map, switchMap} from "rxjs/operators";
 import {OrderService} from "../order.service";
+import {MaterialService} from "../../shared/classes/material.service";
 
 @Component({
   selector: 'app-order-products',
@@ -40,6 +41,7 @@ export class OrderProductsComponent implements OnInit {
 
   addProductToOrder(product: Product){
     this.orderService.add(product)
+    MaterialService.toast(`Добавлено товар ${product.idProduct}, количество: ${product.quantity}`)
   }
 
 }

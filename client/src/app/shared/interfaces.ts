@@ -25,3 +25,20 @@ export interface Product {
   _id?: string,
   quantity?: number
 }
+
+export interface Order {
+  idOrder: number,
+  date?: Date,
+  user?:string,
+  sum: number,
+  list: OrderProduct[],
+  _id: string
+}
+
+export interface OrderProduct {
+  name: string,
+  price: number,
+  cost: number,
+  quantity: number,
+  _id?: string
+}
