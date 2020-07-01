@@ -9,6 +9,7 @@ const categoryRoutes = require('./routes/category')
 const brandRoutes = require('./routes/brand')
 const productRoutes = require('./routes/product')
 const analyticsRoutes = require('./routes/analytics')
+const orderRoutes = require('./routes/order')
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/category', categoryRoutes)
 app.use('/api/brand', brandRoutes)
 app.use('/api/product', productRoutes)
+app.use('/api/order', orderRoutes)
 app.use('/api/analytics', analyticsRoutes)
 
 module.exports = app

@@ -10,13 +10,14 @@ export class OrderService {
   add(product: Product) {
     const orderProduct: OrderProduct = Object.assign({}, {
       _id: product._id,
+      idProduct: product.idProduct,
       name: product.name,
       price: product.price,
       cost: product.cost,
       quantity: product.quantity
     })
     const candidate = this.list.find(p => p._id === orderProduct._id)
-    if(candidate){
+    if (candidate) {
       candidate.quantity += orderProduct.quantity
     } else {
       this.list.push(orderProduct)
@@ -31,7 +32,8 @@ export class OrderService {
   }
 
   clear() {
-
+    this.list = []
+    this.sum = 0
   }
 
   private computeSum() {

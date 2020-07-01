@@ -27,12 +27,12 @@ export interface Product {
 }
 
 export interface Order {
-  idOrder: number,
+  idOrder?: number,
   date?: Date,
   user?:string,
   sum: number,
-  list: OrderProduct[],
-  _id: string
+  listProducts: OrderProduct[],
+  _id?: string
 }
 
 export interface OrderProduct {
@@ -40,5 +40,6 @@ export interface OrderProduct {
   price: number,
   cost: number,
   quantity: number,
+  idProduct?: number
   _id?: string
 }

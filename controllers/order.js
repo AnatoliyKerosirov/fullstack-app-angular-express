@@ -36,12 +36,17 @@ module.exports.getOrder = async function(req, res){
 }
 
 module.exports.create = async function(req, res){
-    try{q
-        const lastOrder = Order.find().sort({date: -1})
-        const maxOrder = lastOrder ? lastOrder.idOrder : 0
+    const total = (ident) => {
+        return  req.body.listProducts.reduce((total, item) => {return total += item.quantity * item[ident]}, 0)
+    }
+    try{
+        const lastOrder = await Order.find().sort({date: -1})
+        const maxOrder = lastOrder[0].idOrder ? lastOrder[0].idOrder : 0
         const order = await new Order({
             idOrder: maxOrder + 1,
             date: new Date(),
+            sum: total('price'),
+            cost: total('cost'),
             listProducts: req.body.listProducts,
             userInfo: req.body.userInfo,
             shipmentInfo: req.body.shipmentInfo,
@@ -49,7 +54,7 @@ module.exports.create = async function(req, res){
         }).save()
         res.status(201).json(order)
     } catch (e) {
-        errorHeandler(res, e)
+        errorHeandler(res, {message: `Order save: ${order} , error: ${e}`})
     }
 }
 
