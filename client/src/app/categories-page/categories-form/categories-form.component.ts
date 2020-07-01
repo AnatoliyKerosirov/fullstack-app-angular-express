@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {switchMap} from "rxjs/operators";
-import {Observable, of} from "rxjs";
+import {of} from "rxjs";
 
 import {CategoriesService} from "../../shared/services/categories.service";
 import {MaterialService} from "../../shared/classes/material.service";
