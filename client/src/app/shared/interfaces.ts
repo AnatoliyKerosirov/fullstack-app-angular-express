@@ -49,3 +49,15 @@ export interface Filter {
   startDate?: Date,
   endDate?: Date
 }
+
+export interface OverviewPage {
+  gain: OverviewPageItem
+  orders: OverviewPageItem
+}
+
+export interface OverviewPageItem {
+  percent: number
+  compare: number
+  day: number
+  isHigher: boolean
+}

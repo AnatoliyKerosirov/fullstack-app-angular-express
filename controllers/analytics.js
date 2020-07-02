@@ -6,7 +6,7 @@ module.exports.overview = async function(req, res){
     try{
         const day = req.params.day ? req.params.day : moment().add(-1, 'd')
         const dayFormat = moment(day).format('YYYY-MM-DD')
-        const allOrders = await Order.find({user: req.user.id}).sort('1')
+        const allOrders = await Order.find({user: req.user.id}).sort({date: 1})
         //Всего заказов
         const numberAllOrders = Object.keys(allOrders).length
         //Заказы по дням
@@ -53,20 +53,21 @@ module.exports.overview = async function(req, res){
         const compareNumberOrders = +(numberOrdersDay - averageOrdersPerDay).toFixed(0)
         res.status(200).json({
             day,
-            //allOrders,
-            //ordersDays,
-            numberDaysInOrders,
-            numberOrdersDay,
-            averageOrdersPerDay,
-            percentNumberOrdersDay,
-            gainAllOrders,
-            gainCostAllOrders,
-            averageGain,
-            gainPricePerDay,
-            gainCostPerDay,
-            percentGainPerDay,
-            compareGain,
-            compareNumberOrders
+            gain: {
+                percent: Math.abs(percentGainPerDay),
+                compare: Math.abs(compareGain),
+                day: gainPricePerDay,
+                isHigher: percentGainPerDay > 0
+            },
+            orders: {
+                percent: Math.abs(percentNumberOrdersDay),
+                compare: Math.abs(compareNumberOrders),
+                day: numberOrdersDay,
+                isHigher: compareNumberOrders > 0
+            },
+            cost: {
+                day: gainCostPerDay,
+            }
         })
     } catch (e) {
         errorHeandler(res, e)
