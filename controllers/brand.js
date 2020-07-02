@@ -5,7 +5,9 @@ const errorHeandler = require('../utils/errorHeandler')
 // (GET) api/brands?offset=10&limit=10
 module.exports.getBrands = async function(req, res){
     try{
-        const brands = await Brand.find().offset(req.query.offset).limit(req.query.limit)
+        const brands = await Brand.find({user: req.user.id})
+            .skip(req.query.offset)
+            .limit(req.query.limit)
         res.status(200).json(brands)
     } catch (e) {
         errorHeandler(res, e)
@@ -15,6 +17,7 @@ module.exports.getBrands = async function(req, res){
 module.exports.getBrand = async function(req, res){
     try{
         const brand = await Order.findOne({
+            user: req.user.id,
             _id: req.body.id
         })
         res.status(200).json(brand)

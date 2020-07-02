@@ -52,6 +52,10 @@ const productSchema = new Schema({
     comment:{
         type: String,
         default: ''
+    },
+    user: {
+        ref: 'users',
+        type: Schema.Types.ObjectId
     }
 })
 

@@ -4,7 +4,10 @@ const errorHeandler = require('../utils/errorHeandler')
 
 module.exports.getProduct = async function(req, res){
     try{
-        const product = await Product.findOne({_id: req.body._id})
+        const product = await Product.findOne({
+            _id: req.body._id,
+            user: req.user.id
+        })
         res.status(200).json(product)
     } catch (e) {
         errorHeandler(res, e)
@@ -20,7 +23,8 @@ module.exports.create = async function(req, res){
             idBrand: req.body.idBrand,
             cost: req.body.cost,
             price: req.body.price,
-            imageSrc: req.file ? req.file.path : ''
+            imageSrc: req.file ? req.file.path : '',
+            user: req.user.id
         }).save()
         res.status(201).json(product)
     } catch (e) {

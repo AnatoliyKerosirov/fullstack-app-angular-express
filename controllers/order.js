@@ -3,7 +3,9 @@ const errorHeandler = require('../utils/errorHeandler')
 
 //(get) /api/order?offset=1&limit=10
 module.exports.getAll = async function(req, res){
-    const query = {}
+    const query = {
+        user: req.user.id
+    }
     if(req.query.startDate){
         query.date = {
             //Больше или равно
@@ -48,6 +50,7 @@ module.exports.create = async function(req, res){
         const lastOrder = await Order.find().sort({date: -1})
         const maxOrder = lastOrder[0].idOrder ? lastOrder[0].idOrder : 0
         const order = await new Order({
+            user: req.user.id,
             idOrder: maxOrder + 1,
             date: new Date(),
             sum: total('price'),

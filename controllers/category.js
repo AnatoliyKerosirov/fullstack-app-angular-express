@@ -4,7 +4,7 @@ const errorHeandler = require('../utils/errorHeandler')
 
 module.exports.getCategories = async function(req, res){
     try{
-        const categories = await Category.find()
+        const categories = await Category.find({user: req.user.id})
         res.status(200).json(categories)
     } catch (e) {
         errorHeandler(res, e)
@@ -25,7 +25,8 @@ module.exports.create = async function(req, res){
         idCategory: req.body.idCategory,
         name: req.body.name,
         idParent: req.body.idParent,
-        imageSrc: req.file ? req.file.path : ''
+        imageSrc: req.file ? req.file.path : '',
+        user: req.user.id,
     })
     try{
         await category.save()
@@ -37,7 +38,10 @@ module.exports.create = async function(req, res){
 
 module.exports.getProducts = async function(req, res){
     try{
-        const products = await Product.find({idCategory: req.params.idCategory})
+        const products = await Product.find({
+            idCategory: req.params.idCategory,
+            user: req.user.id
+        })
         res.status(200).json(products)
     } catch (e) {
         errorHeandler(res, e)

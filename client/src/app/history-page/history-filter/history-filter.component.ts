@@ -47,7 +47,7 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
       filter.startDate = this.start.date
     }
     if(this.end.date){
-      filter.endDate = this.and.date
+      filter.endDate = this.end.date
     }
     this.onFilter.emit(filter)
   }
