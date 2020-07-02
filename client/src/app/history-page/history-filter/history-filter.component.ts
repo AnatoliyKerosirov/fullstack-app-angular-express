@@ -31,7 +31,7 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
   }
 
   validate() {
-    if(!this.start.date || !this.end.date){
+    if (!this.start.date || !this.end.date) {
       this.isValid = true
       return
     }
@@ -39,14 +39,14 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
   }
 
   submitFilter() {
-    const filter: Filter ={}
-    if(this.idOrder){
+    const filter: Filter = {}
+    if (this.idOrder) {
       filter.idOrder = this.idOrder
     }
-    if(this.start.date){
+    if (this.start.date) {
       filter.startDate = this.start.date
     }
-    if(this.end.date){
+    if (this.end.date) {
       filter.endDate = this.end.date
     }
     this.onFilter.emit(filter)
