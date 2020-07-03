@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const passport = require('passport')
+const path = require('path')
 
 const keys = require('./config/keys')
 const authRoutes = require('./routes/auth')
@@ -34,5 +35,17 @@ app.use('/api/brand', brandRoutes)
 app.use('/api/product', productRoutes)
 app.use('/api/order', orderRoutes)
 app.use('/api/analytics', analyticsRoutes)
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/dist/client'))
+
+    app.get('*', (req, res) => {
+        res.sendFile(
+            path.resolve(
+                __dirname, 'client', 'dist', 'client', 'index.html'
+            )
+        )
+    })
+}
 
 module.exports = app
