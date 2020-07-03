@@ -61,3 +61,15 @@ export interface OverviewPageItem {
   day: number
   isHigher: boolean
 }
+
+export interface AnalyticsPage {
+  averageGain: number
+  chart: AnalyticsChartItem[]
+}
+
+export interface AnalyticsChartItem {
+  gain: number
+  cost: number
+  number: number
+  label: string
+}
