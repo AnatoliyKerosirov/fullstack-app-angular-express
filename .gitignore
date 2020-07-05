@@ -1,6 +1,7 @@
 /node_modules
 /client/node_modules
-client/e2e
+/client/e2e
 .idea
+.env
 config/keys.dev.js
 /uploads
